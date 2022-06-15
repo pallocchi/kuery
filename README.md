@@ -1,8 +1,6 @@
 # Kuery, dynamic SQL for Spring Data JDBC
 
-[![][travis img]][travis]
-[![][codecov img]][codecov]
-[![][maven img]][maven]
+[![](https://jitpack.io/v/pallocchi/kuery.svg)](https://jitpack.io/#pallocchi/kuery)
 [![][license img]][license]
 
 
@@ -44,14 +42,5 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[travis]:https://travis-ci.org/bulltimate/vista-kt
-[travis img]:https://travis-ci.org/bulltimate/vista-kt.svg?branch=master
-
 [license]:LICENSE.txt
 [license img]:https://img.shields.io/github/license/mashape/apistatus.svg
-
-[maven]:https://bintray.com/bulltimate/maven/vista/_latestVersion
-[maven img]:https://api.bintray.com/packages/bulltimate/maven/vista/images/download.svg
-
-[codecov]:https://codecov.io/gh/bulltimate/vista-kt
-[codecov img]:https://codecov.io/gh/bulltimate/vista-kt/branch/master/graph/badge.svg
