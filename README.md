@@ -14,7 +14,7 @@ data class Person(val name: String)
 interface PersonRepository : KueryRepository<Person>
 
 // 3. Execute the query
-val people = repository.findBy("name" eq "ross")
+val people = repository.findAll("name" eq "ross")
 ```
 
 Full documentation is available [here](https://pallocchi.github.io/kuery).
