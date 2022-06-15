@@ -14,7 +14,7 @@ Full documentation is available [here](https://pallocchi.github.io/kuery).
 
 ```kts
 dependencies {
-    implementation('io.github.pallocchi:kuery:0.1.0')
+    implementation('com.github.pallocchi:kuery:v0.9.0-alpha')
 }
 ```
 
