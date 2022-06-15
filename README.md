@@ -4,8 +4,17 @@
 [![][license img]][license]
 
 
-```kotlin
+A dynamic SQL executor for [Spring Data JDBC](https://docs.spring.io/spring-data/jdbc/docs/current/reference/html) and [Kotlin](https://kotlinlang.org).
 
+```kotlin
+// 1. Declare the entity
+data class Person(val name: String)
+
+// 2. Declare the repository
+interface PersonRepository : KueryRepository<Person>
+
+// 3. Execute the query
+val people = repository.findBy("name" eq "ross")
 ```
 
 Full documentation is available [here](https://pallocchi.github.io/kuery).
