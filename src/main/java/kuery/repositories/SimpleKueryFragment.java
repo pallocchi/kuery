@@ -23,7 +23,6 @@ import java.util.Optional;
 import java.util.function.LongSupplier;
 import java.util.stream.Stream;
 
-import static kuery.aggregators.AggregatorsKt.count;
 import static kuery.clauses.ClausesKt.asc;
 import static kuery.clauses.ClausesKt.desc;
 import static kuery.clauses.ClausesKt.from;
@@ -47,6 +46,12 @@ public class SimpleKueryFragment<T> implements KueryFragment<T> {
         this.entity = entity;
         this.converter = converter;
         this.template = template;
+    }
+
+    @Override
+    public long count(Predicate predicate) {
+        Assert.notNull(predicate, "Predicate must not be null!");
+        return queryCount(createCountQuery(predicate));
     }
 
     @Override
@@ -78,7 +83,7 @@ public class SimpleKueryFragment<T> implements KueryFragment<T> {
     }
 
     protected Query createCountQuery(@Nullable Predicate predicate) {
-        Query query = from(select(count()), entity.getTableName().getReference());
+        Query query = from(select("count(*)"), entity.getTableName().getReference());
         if (predicate != null)
             query = where(query, predicate);
         return query;
