@@ -2,6 +2,8 @@ package kuery.repositories;
 
 import kuery.types.Predicate;
 import kuery.types.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +18,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -34,6 +37,8 @@ import static kuery.clauses.ClausesKt.where;
 
 @Transactional(readOnly = true)
 public class SimpleKueryFragment<T> implements KueryFragment<T> {
+
+    private final Logger log = LoggerFactory.getLogger(SimpleKueryFragment.class);
 
     private final RelationalPersistentEntity<T> entity;
     private final JdbcConverter converter;
@@ -125,6 +130,8 @@ public class SimpleKueryFragment<T> implements KueryFragment<T> {
 
     private List<T> query(Query query) {
         Object[] args = convertArgs(query);
+        if (log.isDebugEnabled())
+            log.debug("Execute query [" + query.getStatement() + "] with args " + Arrays.toString(args));
         EntityRowMapper<T> mapper = new EntityRowMapper<T>(entity, converter);
         RowMapperResultSetExtractor<T> rse = new RowMapperResultSetExtractor<>(mapper);
         return template.query(query.getStatement(), rse, args);
