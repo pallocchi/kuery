@@ -14,7 +14,7 @@ infix fun String.match(value: Any) = predicateOf("$this @@ ?" , value)
  *
  * @sample kuery.postgres.OperatorsTest.match
  */
-infix fun String.contains(value: Any) = predicateOf("? = ANY($this)}" , value)
+infix fun String.contains(value: Any) = predicateOf("? = ANY($this)" , value)
 
 /**
  * Returns a predicate where NOT [this] @> {[value]}.

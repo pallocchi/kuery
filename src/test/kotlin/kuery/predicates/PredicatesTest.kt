@@ -17,14 +17,14 @@ internal class PredicatesTest {
     @Test
     fun and() {
         val predicate = ("age" eq 21) and ("name" eq "ross")
-        assertThat(predicate.toString()).isEqualTo("age = ? AND name = ?")
+        assertThat(predicate.toString()).isEqualTo("(age = ? AND name = ?)")
         assertThat(predicate.args).containsExactly(21, "ross")
     }
 
     @Test
     fun or() {
         val predicate = ("age" eq 21) or ("name" eq "ross")
-        assertThat(predicate.toString()).isEqualTo("age = ? OR name = ?")
+        assertThat(predicate.toString()).isEqualTo("(age = ? OR name = ?)")
         assertThat(predicate.args).containsExactly(21, "ross")
     }
 }

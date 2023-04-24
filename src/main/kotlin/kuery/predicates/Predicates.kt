@@ -8,11 +8,11 @@ import kuery.types.predicateOf
  *
  * @sample kuery.predicates.PredicatesTest.and
  */
-infix fun Predicate.and(that: Predicate) = predicateOf("$this AND $that", *this.args, *that.args)
+infix fun Predicate.and(that: Predicate) = predicateOf("($this AND $that)", *this.args, *that.args)
 
 /**
  * Returns a new predicate which statement is [this] OR [that].
  *
  * @sample kuery.predicates.PredicatesTest.or
  */
-infix fun Predicate.or(that: Predicate) = predicateOf("$this OR $that", *this.args, *that.args)
+infix fun Predicate.or(that: Predicate) = predicateOf("($this OR $that)", *this.args, *that.args)
