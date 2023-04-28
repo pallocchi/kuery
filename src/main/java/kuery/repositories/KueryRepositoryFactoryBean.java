@@ -3,10 +3,13 @@ package kuery.repositories;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.jdbc.core.convert.BatchJdbcOperations;
 import org.springframework.data.jdbc.core.convert.DataAccessStrategy;
 import org.springframework.data.jdbc.core.convert.DefaultDataAccessStrategy;
+import org.springframework.data.jdbc.core.convert.InsertStrategyFactory;
 import org.springframework.data.jdbc.core.convert.JdbcConverter;
 import org.springframework.data.jdbc.core.convert.SqlGeneratorSource;
+import org.springframework.data.jdbc.core.convert.SqlParametersFactory;
 import org.springframework.data.jdbc.repository.QueryMappingConfiguration;
 import org.springframework.data.jdbc.repository.support.JdbcRepositoryFactoryBean;
 import org.springframework.data.mapping.callback.EntityCallbacks;
@@ -107,8 +110,10 @@ public class KueryRepositoryFactoryBean<T extends Repository<S, ID>, S, ID exten
                 .getBeanProvider(DataAccessStrategy.class)
                 .getIfAvailable(() -> {
                     Assert.state(this.dialect != null, "Dialect is required and must not be null!");
-                    SqlGeneratorSource sqlGeneratorSource = new SqlGeneratorSource(this.mappingContext, this.converter, this.dialect);
-                    return new DefaultDataAccessStrategy(sqlGeneratorSource, this.mappingContext, this.converter, this.operations);
+                    var sqlGeneratorSource = new SqlGeneratorSource(this.mappingContext, this.converter, this.dialect);
+                    var sqlParametersFactory = new SqlParametersFactory(this.mappingContext, this.converter, this.dialect);
+                    var insertStrategyFactory = new InsertStrategyFactory(this.operations, new BatchJdbcOperations(this.operations.getJdbcOperations()), this.dialect);
+                    return new DefaultDataAccessStrategy(sqlGeneratorSource, this.mappingContext, this.converter, this.operations, sqlParametersFactory, insertStrategyFactory);
                 });
         }
 

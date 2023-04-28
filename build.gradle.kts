@@ -3,7 +3,7 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import java.net.URL
 
 plugins {
-    kotlin("jvm") version "1.6.10"
+    kotlin("jvm") version "1.7.22"
     id("org.jetbrains.dokka") version "1.6.10"
     id("maven-publish")
 }
@@ -11,21 +11,23 @@ plugins {
 group = "io.github.pallocchi"
 version = "1.0-SNAPSHOT"
 
+java.sourceCompatibility = JavaVersion.VERSION_17
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
     implementation(kotlin("stdlib"))
-    compileOnly("org.springframework.data:spring-data-jdbc:2.3.3")
+    compileOnly("org.springframework.data:spring-data-jdbc:3.0.4")
     testImplementation("org.jetbrains.kotlin:kotlin-reflect")
     testImplementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    testImplementation("org.springframework.boot:spring-boot-starter-test:2.6.5")
-    testImplementation("org.springframework.boot:spring-boot-starter-data-jdbc:2.6.5")
-    testImplementation("org.liquibase:liquibase-core:4.9.1")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
-    testImplementation("org.assertj:assertj-core:3.22.0")
-    testImplementation("com.h2database:h2:2.1.210")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:3.0.4")
+    testImplementation("org.springframework.boot:spring-boot-starter-data-jdbc:3.0.4")
+    testImplementation("org.liquibase:liquibase-core:4.20.0")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
+    testImplementation("org.assertj:assertj-core:3.24.2")
+    testImplementation("com.h2database:h2:2.1.214")
 }
 
 tasks.withType<Test>().configureEach {
@@ -33,7 +35,10 @@ tasks.withType<Test>().configureEach {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions {
+        freeCompilerArgs = listOf("-Xjsr305=strict")
+        jvmTarget = "17"
+    }
 }
 
 // Docs

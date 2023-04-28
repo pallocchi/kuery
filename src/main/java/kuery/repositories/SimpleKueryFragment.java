@@ -147,7 +147,7 @@ public class SimpleKueryFragment<T> implements KueryFragment<T> {
 
     private Object[] convertArgs(Query query) {
         return Stream.of(query.getArgs())
-            .map(arg -> converter.writeJdbcValue(arg, arg.getClass(), JdbcUtil.sqlTypeFor(arg.getClass())).getValue())
+            .map(arg -> converter.writeJdbcValue(arg, arg.getClass(), JdbcUtil.targetSqlTypeFor(arg.getClass())).getValue())
             .toArray(Object[]::new);
     }
 }
